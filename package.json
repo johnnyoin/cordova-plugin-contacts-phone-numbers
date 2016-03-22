@@ -5,8 +5,7 @@
   "cordova": {
     "id": "com.dbaq.cordova.contactsPhoneNumbers",
     "platforms": [
-      "android",
-      "ios"
+      "android"
     ]
   },
   "repository": {
