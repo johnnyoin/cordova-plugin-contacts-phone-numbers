@@ -120,10 +120,16 @@ public class ContactsManager extends CordovaPlugin {
                     contact.put("id", contactId);
                     contact.put("displayName", c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
                     contact.put("email", c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA)));
-                    Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, (Long.valueOf(contactId)));
-                    Uri photoUri = Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
-                    contact.put("photo", photoUri.toString());
+
+                    String photoId = c.getString(c.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
+                    if (photoId != null) {
+                        Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, (Long.valueOf(contactId)));
+                        Uri photoUri = Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+                        contact.put("photo", photoUri.toString());
+                    }
+
                     contacts.put(contact);
+
                 } while (c.moveToNext());
             }
         } catch (JSONException e) {
